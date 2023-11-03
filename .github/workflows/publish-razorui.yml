@@ -34,7 +34,7 @@ jobs:
             dotnet-version: '8.0.100-rc.2.23502.2'
 
         - name: Package Project for Nuget
-          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} --include-symbols --include-source
           working-directory: RazorUI
 
         - uses: actions/upload-artifact@v3
