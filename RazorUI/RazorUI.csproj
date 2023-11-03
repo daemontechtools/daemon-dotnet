@@ -32,4 +32,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="daemon_logo.jpg" Pack="true" Visible="false" PackagePath="daemon_logo.jpg" />
+  </ItemGroup>
+
 </Project>
