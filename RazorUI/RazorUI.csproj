@@ -19,6 +19,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
 
 
