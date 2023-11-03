@@ -1,6 +1,7 @@
 name: Deploy Daemon RazorUI
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - main
