@@ -68,6 +68,7 @@ jobs:
           do
             meziantou.validate-nuget-package $file
           done
+        working-directory: RazorUI
 
   run_test:
     runs-on: ubuntu-latest
