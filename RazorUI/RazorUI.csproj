@@ -19,7 +19,13 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <Deterministic>true</Deterministic>
+    <IncludeSymbols>true</IncludeSymbols>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup> 
 
 
   <ItemGroup>
