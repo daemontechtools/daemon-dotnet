@@ -63,7 +63,7 @@ jobs:
 
       - name: Validate package
         run: |
-          for file in $(find ${{ env.NuGetDirectory }} -name "*.nupkg")
+          for file in $(find ${{ env.NuGetDirectory }} -name "*.symbols.nupkg")
           do
             meziantou.validate-nuget-package $file
           done
