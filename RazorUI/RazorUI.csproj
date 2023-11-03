@@ -17,6 +17,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>daemon_logo.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
 
