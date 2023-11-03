@@ -12,6 +12,7 @@
     <Company>Daemon Tech Tools</Company>
     <Product>RazorUI</Product>
     <Description>Awesome RazorUI</Description>
+    <PackageTags>Daemon;.Net;Razor;UI;</PackageTags>
     <PackageProjectUrl>https://github.com/daemontechtools/daemon-dotnet/tree/main/RazorUI</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>daemon_logo.jpg</PackageIcon>
