@@ -4,9 +4,13 @@ on:
   push:
     branches:
     - main
+    paths:
+      - 'RazorUI/**'
   pull_request:
     branches:
     - main
+    paths:
+      - 'RazorUI/**'
     
 jobs:
   build:
@@ -26,6 +30,7 @@ jobs:
 
         - name: Restore dependencies
           run: nuget restore
+          working-directory: ./RazorUI
 
         - name: Setup dotnet
           uses: actions/setup-dotnet@v3
@@ -42,6 +47,8 @@ jobs:
 
         - name: Install dependencies
           run: dotnet add package Microsoft.AspNetCore.Components.QuickGrid --version 8.0.0-rc.2.23480.2
+          working-directory: ./RazorUI
   
         - name: Build with dotnet
           run: dotnet build --configuration Release
+          working-directory: ./RazorUI
