@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RepositoryUrl>https://github.com/daemontechtools/daemon-dotnet</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageId>DaemonTechTools</PackageId>
+    <PackageId>Daemon.RazorUI</PackageId>
     <Version>1.0.0</Version>
     <Authors>Josh Elias</Authors>
     <Company>Daemon Tech Tools</Company>
