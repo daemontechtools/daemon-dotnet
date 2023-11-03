@@ -62,7 +62,11 @@ jobs:
         working-directory: RazorUI
 
       - name: Validate package
-        run: meziantou.validate-nuget-package (Get-ChildItem "${{ env.NuGetDirectory }}/*.nupkg")
+        run: |
+          for file in $(find ${{ env.NuGetDirectory }} -name "*.nupkg")
+          do
+            meziantou.validate-nuget-package $file
+          done
 
   run_test:
     runs-on: ubuntu-latest
