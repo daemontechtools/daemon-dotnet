@@ -1,19 +1,13 @@
 using System.Text.RegularExpressions;
-using Microsoft.Extensions.Logging;
 
 namespace Daemon.RazorUI.Components;
 
 public class Utils {
-    private static readonly ILoggerFactory _loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-    private static readonly ILogger _logger = _loggerFactory.CreateLogger<Utils>();
 
 public static string GetClass(params string[] classNames) {
     string classString = string.Join(" ", classNames);
-    _logger.LogInformation("classString: " + classString);
     string cleanClasses = Regex.Replace(classString, @"\s+", " ");
-    _logger.LogInformation("cleanClasses: " + cleanClasses);
     string[] uniqueClasses = cleanClasses.Split(" "); 
-    _logger.LogInformation("uniqueClasses: " + string.Join(", ", uniqueClasses));
     // We will filter out duplicates
     // each element of uniqueClasses will be split by "-" character
     // matches will be prioritized by taking the last match in the array
@@ -35,7 +29,6 @@ public static string GetClass(params string[] classNames) {
         }
     }
         string result = string.Join(" ", filteredClasses);
-        _logger.LogInformation("result: " + result);
         return result;
         }
 }
