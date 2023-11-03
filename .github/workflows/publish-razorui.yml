@@ -60,7 +60,6 @@ jobs:
 
       - name: Install nuget validator
         run: dotnet tool update Meziantou.Framework.NuGetPackageValidation.Tool --global
-        working-directory: RazorUI
 
       - name: Validate package
         run: |
@@ -68,6 +67,7 @@ jobs:
           do
             meziantou.validate-nuget-package $file
           done
+        
 
   run_test:
     runs-on: ubuntu-latest
