@@ -33,7 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="daemon_logo.jpg" Pack="true" Visible="false" PackagePath="daemon_logo.jpg" />
+    <None Include="daemon_logo.jpg" Pack="true" PackagePath="daemon_logo.jpg" />
+    <None Include="README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>
 
 </Project>
