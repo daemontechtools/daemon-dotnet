@@ -14,7 +14,7 @@
     <Description>Awesome RazorUI</Description>
     <PackageProjectUrl>https://github.com/daemontechtools/daemon-dotnet/tree/main/RazorUI</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>icon.png</PackageIcon>
+    <PackageIcon>daemon_logo.jpg</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
