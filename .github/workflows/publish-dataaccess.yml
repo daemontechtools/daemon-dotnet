@@ -1,0 +1,108 @@
+name: Deploy Daemon DataAccess
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+      - 'DataAccess/**'
+  pull_request:
+    branches:
+    - main
+    paths:
+      - 'DataAccess/**'
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+  NuGetDirectory: ${{ github.workspace}}/DataAccess/nuget
+
+    
+jobs:
+  create_nuget:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Setup dotnet
+          uses: actions/setup-dotnet@v3
+          with:
+            dotnet-version: '8.0.100-rc.2.23502.2'
+
+        - name: Package Project for Nuget
+          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} --include-symbols --include-source
+          working-directory: DataAccess
+
+        - uses: actions/upload-artifact@v3
+          with:
+            name: nuget
+            if-no-files-found: error
+            retention-days: 7
+            path: ${{ env.NuGetDirectory }}/*.nupkg
+
+  validate_nuget:
+    runs-on: ubuntu-latest
+    needs: [ create_nuget ]
+    steps:
+      # Install the .NET SDK indicated in the global.json file
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+
+      # Download the NuGet package created in the previous job
+      - uses: actions/download-artifact@v3
+        with:
+          name: nuget
+          path: ${{ env.NuGetDirectory }}
+
+      - name: Install nuget validator
+        run: dotnet tool update Meziantou.Framework.NuGetPackageValidation.Tool --global
+
+      - name: Validate package
+        run: |
+          for file in $(find ${{ env.NuGetDirectory }} -name "*.symbols.nupkg")
+          do
+            meziantou.validate-nuget-package $file
+          done
+        
+
+  run_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+    - name: Run tests
+      run: dotnet test --configuration Release
+      working-directory: DataAccess
+
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: [ validate_nuget, run_test ]
+    environment: Production
+    steps:
+      # Download the NuGet package created in the previous job
+      - uses: actions/download-artifact@v3
+        with:
+          name: nuget
+          path: ${{ env.NuGetDirectory }}
+
+      # Install the .NET SDK indicated in the global.json file
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.100-rc.2.23502.2'
+
+      # Publish all NuGet packages to NuGet.org
+      # Use --skip-duplicate to prevent errors if a package with the same version already exists.
+      # If you retry a failed workflow, already published packages will be skipped without error.
+      - name: Publish NuGet package
+        run: |
+          for file in $(find ${{ env.NuGetDirectory }} -name "*.nupkg")
+          do
+            dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done
