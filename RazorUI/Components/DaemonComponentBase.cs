@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Daemon.RazorUI.Components;
 
-public abstract class DaemonComponentBase : ComponentBase {
+public class DaemonComponentBase : ComponentBase {
 
     [Parameter]
     public string? Class { get; set; }

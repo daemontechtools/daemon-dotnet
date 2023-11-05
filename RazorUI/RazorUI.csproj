@@ -21,6 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <Deterministic>true</Deterministic>
     <IncludeSymbols>true</IncludeSymbols>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
