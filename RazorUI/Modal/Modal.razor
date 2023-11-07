@@ -34,11 +34,8 @@
                     {Transition.GetTransitionClass(_transitionState)}")
                     style=@($"transition-duration: {TransitionDuration}ms;")
                     @onclick:stopPropagation=true
-                    @onclick:preventDefault=true>
-                    @if (_modalService.Content != null)
-                    {
-                        @_modalService.Content
-                    }
+                    @onclick:preventDefault=true >
+                        <ModalContent Input=@_modalService.ContentInput />          
                 </div>
             </div>
         </div>
