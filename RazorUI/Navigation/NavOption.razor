@@ -7,7 +7,7 @@
 
 
 <NavLink 
-    href=@OptionPath
+    href=@Path
     class="
         group flex items-center
         px-2 py-2
@@ -20,16 +20,15 @@
     "
     ActiveClass="bg-stone-900"
 >
-    <div class="
-        mr-4 h-6 w-6 
-        flex-shrink-0 
-        text-stone-200 hover:text-stone-400
-    ">
-        @if (Icon != null)
-        { 
-            @Icon
-        }
-    </div>
+    @if (ChildContent != null) { 
+        <div class="
+            mr-4 h-6 w-6 
+            flex-shrink-0 
+            text-stone-200 hover:text-stone-400
+        ">
+            @ChildContent    
+        </div>
+    }
     @Title
 </NavLink>
 
@@ -39,22 +38,8 @@
     public string Title { get; set; } = "Default Title";
 
     [Parameter]
-    public string OptionPath { get; set; } = "/";    
+    public string Path { get; set; } = "/";    
 
     [Parameter]
-    public Type? IconType { get; set; }
-
-    private RenderFragment? Icon { get; set; }
-
-    private string CurrentUrl { get; set; } = "/";
-
-    protected override void OnInitialized()
-    {
-        if(IconType != null)
-        {
-            Icon = IconHelper.TypeToRenderFragment(IconType);
-        }
-        
-        base.OnInitialized();
-    }
+    public RenderFragment? ChildContent { get; set; }
 }
