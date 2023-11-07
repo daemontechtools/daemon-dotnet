@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Daemon.DataAccess</PackageId>
-    <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
+    <MinVerMinimumMajorMinor>1.1</MinVerMinimumMajorMinor>
     <Authors>Josh Elias</Authors>
     <Company>Daemon Tech Tools</Company>
     <Product>DataAccess</Product>
