@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./**/*.{razor,html,cshtml}",
+    "./**/*.{razor,html,cshtml,css}",
   ],
-  output: "./wwwroot/css/bundle.css",
   theme: {
     fontFamily: {
         'body': ['Nunito', 'system-ui', 'sans-serif']
