@@ -7,7 +7,7 @@
     <RepositoryUrl>https://github.com/daemontechtools/daemon-dotnet</RepositoryUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Daemon.RazorUI</PackageId>
-    <Version>1.0.0</Version>
+    <MinVerMinimumMajorMinor>1.0</MinVerMinimumMajorMinor>
     <Authors>Josh Elias</Authors>
     <Company>Daemon Tech Tools</Company>
     <Product>RazorUI</Product>
