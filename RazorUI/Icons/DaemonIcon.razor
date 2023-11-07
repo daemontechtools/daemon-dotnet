@@ -1,5 +1,6 @@
 ﻿@namespace Daemon.RazorUI.Icons
 
+@inherits DaemonBaseIcon
 
 <svg 
     xmlns="http://www.w3.org/2000/svg" 
@@ -9,14 +10,10 @@
     stroke="currentColor" 
     class=@Class
 >
-    @ChildContent
+  @ChildContent
 </svg>
 
 @code {
-
-    [Parameter]
-    public string? Class { get; set; }
-
-    [Parameter] 
+    [Parameter, EditorRequired]
     public RenderFragment? ChildContent { get; set; }
 }

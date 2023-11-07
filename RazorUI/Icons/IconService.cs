@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace Daemon.RazorUI.Icons;
 
+
+// IconBuilder.Build<QuoteIcon>("text-gray-500")
 public static class IconHelper
 {
     public static RenderFragment TypeToRenderFragment(Type t, Dictionary<string, string>? attributes)
