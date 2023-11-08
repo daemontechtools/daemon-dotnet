@@ -1,4 +1,6 @@
-﻿@namespace Daemon.RazorUI.Icons
+﻿@using Daemon.RazorUI.Color
+
+@namespace Daemon.RazorUI.Icons
 
 @inherits DaemonBaseIcon
 
@@ -8,7 +10,7 @@
     viewBox="0 0 24 24" 
     stroke-width="1.5" 
     stroke="currentColor" 
-    class=@Class
+    class=@(Props.ToClass())
 >
   @ChildContent
 </svg>

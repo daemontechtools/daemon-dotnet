@@ -35,7 +35,7 @@
                     style=@($"transition-duration: {TransitionDuration}ms;")
                     @onclick:stopPropagation=true
                     @onclick:preventDefault=true >
-                        <ModalContent Input=@_modalService.ContentInput />          
+                        <ModalContent Props=@_modalService.ContentProps />          
                 </div>
             </div>
         </div>

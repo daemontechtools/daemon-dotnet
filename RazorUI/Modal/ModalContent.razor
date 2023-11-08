@@ -14,10 +14,10 @@
         class=@($@"
             mx-auto flex h-12 w-12 flex-shrink-0 
             items-center justify-center rounded-full 
-            text-{Input?.Color} bg-red-100 sm:mx-0 sm:h-10 sm:w-10
+            bg-{Props?.IconProps?.Color?.Name}-100 sm:mx-0 sm:h-10 sm:w-10
         ")
     >
-        @if(Input?.IconType != null)
+        @if(Props?.IconType != null)
         {
             @_icon
         }
@@ -31,17 +31,17 @@
             " 
             id="modal-title"
         >
-            @Input?.Title
+            @Props?.Title
         </h3>
         <div class="mt-2">
-            <p class="text-sm text-gray-500 text-left">@Input?.Description</p>
+            <p class="text-sm text-gray-500 text-left">@Props?.Description</p>
         </div>
     </div>
 </div>
 <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
     <button 
         type="button" 
-        class=@($"daemon-button bg-{Input?.Color}")
+        class=@($"daemon-button bg-{Props?.IconProps?.Color?.Name}-500")
         @onclick=@(() => HandleConfirmation(true))
         disabled=@_isLoading
     >
@@ -66,18 +66,18 @@
 @code {
 
     [Parameter] 
-    public ModalContentInput? Input { get; set; }
+    public ModalContentProps? Props { get; set; }
 
     private RenderFragment? _icon;
     private bool _isLoading = false;
 
     private async Task HandleConfirmation(bool confirmed)
     {
-        if(Input == null || Input?.OnConfirm == null)
+        if(Props == null || Props?.OnConfirm == null)
             return;
 
         _isLoading = true;
-        await Input?.OnConfirm?.Invoke(confirmed);
+        await Props?.OnConfirm?.Invoke(confirmed);
         _isLoading = false;  
     }
 
@@ -88,14 +88,14 @@
 
     private void InitIcon()
     {
-        if (Input?.IconType != null)
+        if (Props?.IconType != null)
         {
             _icon = builder =>
                 {
-                    builder.OpenComponent(0, Input?.IconType);
-                    if (Input?.Color != null)
+                    builder.OpenComponent(0, Props?.IconType);
+                    if (Props?.IconProps != null)
                     {
-                        builder.AddAttribute(1, "Class", $"text-{Input?.Color}");
+                        builder.AddAttribute(1, "Props", Props?.IconProps);
                     }
                     builder.CloseComponent();
                 };

@@ -8,12 +8,12 @@ namespace Daemon.RazorUI.Modal;
 // how long the delay will be
 public class ModalService
 {
-    public ModalContentInput? ContentInput { get; set; }
+    public ModalContentProps? ContentProps { get; set; }
     private bool _show = false;
 
-    private void SetShow(bool show, ModalContentInput? contentInput = null)
+    private void SetShow(bool show, ModalContentProps? contentProps = null)
     {
-        ContentInput = contentInput;
+        ContentProps = contentProps;
         _show = show;
         if(OnStateChange != null) OnStateChange.Invoke(this, show);
     }
@@ -21,9 +21,9 @@ public class ModalService
 
     public EventHandler<bool>? OnStateChange;
 
-    public void Show(ModalContentInput contentInput)
+    public void Show(ModalContentProps contentProps)
     {
-        SetShow(true, contentInput);
+        SetShow(true, contentProps);
     }
 
     public void Hide()

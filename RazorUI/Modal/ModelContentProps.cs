@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Components;
-
+using Daemon.RazorUI.Color;
+using Daemon.RazorUI.Icons;
 
 namespace Daemon.RazorUI.Modal;
 
 
-public struct ModalContentInput
+public struct ModalContentProps
 {
 
     //TODO: set defaults?
-    public string? Color { get; set; }
+    public IconProps? IconProps { get; set; }
     public Type? IconType { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
