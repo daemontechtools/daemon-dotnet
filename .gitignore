@@ -261,5 +261,4 @@ __pycache__/
 *.pyc
 
 obj/
-wwwroot/css/*
-wwwwroot/css
+**/wwwroot/css
