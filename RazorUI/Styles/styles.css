@@ -1,4 +1,6 @@
-﻿@tailwind base;
+﻿@import "default-quickgrid.css";
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
