@@ -4,7 +4,7 @@
 
 @inject ILogger<ContentViewHeader> Logger
 
-<div class="sm:flex sm:items-center">
+<div class=@($"sm:flex sm:items-center {Class}")>
     <div class="sm:flex-auto">
         @if(!String.IsNullOrEmpty(Title))
         {
@@ -47,6 +47,9 @@
 
     [Parameter]
     public string? ButtonLabel { get; set; }
+
+    [Parameter]
+    public string Class { get; set; } = "";
 
     [Parameter]
     public EventCallback OnClick { get; set; }
