@@ -44,7 +44,7 @@ table.quickgrid[theme=default] tbody tr {
 }
 
 table.quickgrid[theme=default] tbody td {
-    @apply whitespace-nowrap text-sm !py-4;
+    @apply whitespace-nowrap text-sm !py-4 cursor-default;
 }
 table.quickgrid[theme=default] tbody td:first-child {
     @apply pl-2 pr-1 font-medium text-gray-900 sm:pl-3;
