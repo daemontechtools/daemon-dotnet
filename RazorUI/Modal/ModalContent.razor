@@ -9,17 +9,19 @@
 @inject ModalService _modalService
 @inject ILogger<ModalContent> Logger
 
+
 <div class="sm:flex sm:items-start">
     <div 
         class=@($@"
             mx-auto flex h-12 w-12 flex-shrink-0 
             items-center justify-center rounded-full 
-            bg-{Props?.IconProps?.Color?.Name}-100 sm:mx-0 sm:h-10 sm:w-10
+            sm:mx-0 sm:h-10 sm:w-10
+            {_iconBackgroundClass}
         ")
     >
         @if(Props?.IconType != null)
         {
-            @_icon
+            <div class="w-7">@_icon</div>   
         }
     </div>
     <div class="ml-4 mt-0">
@@ -41,16 +43,16 @@
 <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
     <button 
         type="button" 
-        class=@($"daemon-button bg-{Props?.IconProps?.Color?.Name}-500")
+        class=@($"daemon-button {_buttonClass}")
         @onclick=@(() => HandleConfirmation(true))
         disabled=@_isLoading
     >
         @if(_isLoading)
         {
-            <Spinner Class="text-stone-400 dark:text-stone-400 fill-orange-600"/>
+            <Spinner Class="text-white dark:text-stone-400 fill-orange-600"/>
         } 
         else {
-            <span>Delete</span>
+            <span class="text-stone-200">Delete</span>
         }
     </button>
     <button 
@@ -70,6 +72,8 @@
 
     private RenderFragment? _icon;
     private bool _isLoading = false;
+    private string _iconBackgroundClass = "";
+    private string _buttonClass = "";
 
     private async Task HandleConfirmation(bool confirmed)
     {
@@ -83,6 +87,12 @@
 
     protected override void OnInitialized()
     {
+        _iconBackgroundClass = (Props?.IconBackgroundClass != null)
+            ? Props?.IconBackgroundClass
+            : "bg-sky-100";
+        _buttonClass = (Props?.ButtonClass != null) 
+            ? Props?.ButtonClass 
+            : "";
         InitIcon();
     }
 

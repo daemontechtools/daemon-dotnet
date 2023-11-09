@@ -11,7 +11,9 @@ public struct ModalContentProps
     //TODO: set defaults?
     public IconProps? IconProps { get; set; }
     public Type? IconType { get; set; }
+    public string? IconBackgroundClass { get; set; }
     public string? Title { get; set; }
     public string? Description { get; set; }
     public Func<bool, Task> OnConfirm { get; set; }
+    public string? ButtonClass { get; set; }
 }
