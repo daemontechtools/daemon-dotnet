@@ -12,26 +12,23 @@
   placeholder:text-stone-300
   shadow-sm 
 ">
-  <div class="container">
-    <div class="relative w-full">
-      <div class="absolute -left-8 w-6">
-        <SearchIcon Props=@(new IconProps() { Class = "stroke-stone-400" }) />
-      </div> 
-      <input 
-        id="search-field" 
-        class="
-            h-full w-full 
-            border-0 
-            bg-transparent 
-            !p-0
-            placeholder-stone-400 
-            text-stone-100
-            focus:ring-0
-        " 
-        placeholder="Search..." 
-        type="search" 
-        name="search"
-      >
-    </div>
+  <div class="container flex">
+    <SearchIcon Props=@(new IconProps() { Class = "stroke-stone-400 w-5 mr-1.5" }) />
+
+    <input 
+      id="search-field" 
+      class="
+          h-full w-full 
+          border-0 
+          bg-transparent 
+          !p-0
+          placeholder-stone-400 
+          text-stone-100
+          focus:ring-0
+      " 
+      placeholder="Search..." 
+      type="search" 
+      name="search"
+    >
   </div>
 </div>
