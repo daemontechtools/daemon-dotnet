@@ -8,7 +8,7 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Daemon.DataAccess</PackageId>
-    <Version>1.2.0</Version>
+    <MinVerMinimumMajorMinor>1.3</MinVerMinimumMajorMinor>
     <Authors>Josh Elias</Authors>
     <Company>Daemon Tech Tools</Company>
     <Product>DataAccess</Product>
@@ -32,6 +32,13 @@
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup> 
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="4.3.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="daemon_logo.jpg" Pack="true" PackagePath="daemon_logo.jpg" />
