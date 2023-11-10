@@ -3,6 +3,8 @@
 
 @namespace Daemon.RazorUI.Input
 
+@inject ILogger<Search> Logger
+
 <div class="
   flex h-16 
   items-center 
@@ -29,6 +31,19 @@
       placeholder="Search..." 
       type="search" 
       name="search"
+      @oninput=OnInputHandler
     >
   </div>
 </div>
+
+@code {
+
+  [Parameter]
+  public EventCallback<string> OnInput { get; set; }
+
+  private void OnInputHandler(ChangeEventArgs e)
+  {
+    //Logger.LogInformation($"On Input handler Search input: {e.Value}");
+    OnInput.InvokeAsync(e.Value.ToString());
+  }
+}

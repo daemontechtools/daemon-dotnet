@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Daemon.RazorUI</PackageId>
     <MinVerMinimumMajorMinor>1.1</MinVerMinimumMajorMinor>
-    <MinVerPreRelease></MinVerPreRelease>
+    <MinVerIgnoreHeight>true</MinVerIgnoreHeight>
     <Authors>Josh Elias</Authors>
     <Company>Daemon Tech Tools</Company>
     <Product>RazorUI</Product>
