@@ -2,7 +2,7 @@
 
 
 appStylesPathIn="./Styles/styles.css"
-appStylesPathOut="./wwwroot/css/styles.css"
+appStylesPathOut="./wwwroot/css/razor-ui.css"
 
 
 if [[ $1 == "--watch" ]]; then
