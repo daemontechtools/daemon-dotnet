@@ -41,11 +41,11 @@ jobs:
           with:
             dotnet-version: '8.x'
 
-        - name: Package Project for Nuget
-          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+        - name: Dotnet Clean
+          run: dotnet clean --configuration Release
           working-directory: RazorUI
 
-        - name: Re-run package because reasons...
+        - name: Package Project for Nuget
           run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
           working-directory: RazorUI
 
