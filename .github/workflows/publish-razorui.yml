@@ -16,10 +16,9 @@ on:
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
-  NuGetDirectory: ${{ github.workspace}}/RazorUI/nuget
+  NuGetDirectory: ${{github.workspace}}/RazorUI/nuget
   APP_MODE: "Production"
   TAILWINDCSS: "./tailwindcss"
-
     
 jobs:
   create_nuget:
@@ -113,5 +112,8 @@ jobs:
         run: |
           for file in $(find ${{ env.NuGetDirectory }} -name "*.nupkg")
           do
-            dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            # Exclude symbols packages
+            if [[ $file != *".symbols.nupkg" ]]; then
+              dotnet nuget push $file --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            fi
           done

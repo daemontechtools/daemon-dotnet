@@ -52,13 +52,12 @@
   </Target>
 
   <Target Name="ProcessScopedCssFileWithTailwind">
-    <Message Importance="high" Text="Processing with Tailwind: $(CurrentScopedCssFile)" />
+    <Message Importance="high" Text="Processing Scoped CSS with Tailwind: $(CurrentScopedCssFile)" />
     <Exec Command="$(TAILWINDCSS) -i $(CurrentScopedCssFile) -o $(CurrentScopedCssFile)" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
-<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Release'">
-  <Exec Command="$(ProjectDir)tailwindbuild.sh" />
-</Target>
-
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Release'">
+    <Exec Command="$(ProjectDir)tailwindbuild.sh" />
+  </Target>
 
 </Project>
