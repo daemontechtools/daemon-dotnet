@@ -57,7 +57,7 @@
     <Exec Command="$(TAILWINDCSS) -i $(CurrentScopedCssFile) -o $(CurrentScopedCssFile)" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'=='Release'">
+  <Target Name="AfterBuild" Condition="'$(Configuration)'=='Release'">
     <Exec Command="$(ProjectDir)tailwindbuild.sh" />
   </Target>
 

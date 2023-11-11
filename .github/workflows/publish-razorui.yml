@@ -42,7 +42,11 @@ jobs:
             dotnet-version: '8.x'
 
         - name: Package Project for Nuget
-          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} --include-symbols --include-source
+          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
+          working-directory: RazorUI
+
+        - name: Re-run package because reasons...
+          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
           working-directory: RazorUI
 
         - uses: actions/upload-artifact@v3
