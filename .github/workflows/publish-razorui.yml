@@ -45,6 +45,10 @@ jobs:
           run: dotnet clean --configuration Release
           working-directory: RazorUI
 
+        - name: Build Project for Nuget
+          run: dotnet build --configuration Release
+          working-directory: RazorUI
+
         - name: Package Project for Nuget
           run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
           working-directory: RazorUI
