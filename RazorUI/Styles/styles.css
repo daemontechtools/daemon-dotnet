@@ -8,10 +8,12 @@
 @layer components {
     .daemon-button {
         @apply 
+            cursor-pointer
+            transition-hover
             flex rounded-md bg-sky-500 px-3 py-2 justify-center
             text-center text-sm font-semibold text-black shadow-sm
             ring-1 ring-inset ring-gray-300
-            hover:bg-gray-50 w-fit min-w-[80px] focus-visible:outline 
+            hover:bg-sky-300 w-fit min-w-[80px] focus-visible:outline 
             focus-visible:outline-2 focus-visible:outline-offset-2 
             focus-visible:outline-sky-500;
     }
