@@ -13,7 +13,7 @@ table.quickgrid[theme=default] thead {
 
 
 table.quickgrid[theme=default] thead th:first-child {
-    @apply py-3.5 pl-2 pr-1 sm:pl-3;
+    @apply py-3.5 pl-4 pr-1 sm:pl-6;
 }
 table.quickgrid[theme=default] thead th:not(:first-child):not(:last-child) {
     @apply px-1 py-3.5;
@@ -31,7 +31,7 @@ table.quickgrid[theme=default] thead th .col-header-content {
 
 
 table.quickgrid[theme=default] thead .col-title {
-    @apply pl-0 hover:bg-inherit;
+    @apply p-0 hover:bg-inherit;
 }
 
 
@@ -47,7 +47,7 @@ table.quickgrid[theme=default] tbody td {
     @apply whitespace-nowrap text-sm !py-4 cursor-default;
 }
 table.quickgrid[theme=default] tbody td:first-child {
-    @apply pl-2 pr-1 font-medium text-gray-900 sm:pl-3;
+    @apply pl-4 pr-1 font-medium text-gray-900 sm:pl-6;
 }
 table.quickgrid[theme=default] tbody td:not(:first-child):not(:last-child) {
     @apply text-gray-500 px-1;
