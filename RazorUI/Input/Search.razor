@@ -6,15 +6,13 @@
 @inject ILogger<Search> Logger
 
 <div class="
-  flex h-16 
-  items-center 
+  h-12 
+  container-wide
   border-b border-stone-900 
   bg-stone-600 
   text-stone-300
   placeholder:text-stone-300
-  shadow-sm 
 ">
-  <div class="container flex">
     <SearchIcon Props=@(new IconProps() { Class = "stroke-stone-400 w-5 mr-1.5" }) />
 
     <input 
@@ -29,11 +27,10 @@
           focus:ring-0
       " 
       placeholder="Search..." 
-      type="search" 
+      type="text" 
       name="search"
       @oninput=OnInputHandler
     >
-  </div>
 </div>
 
 @code {
