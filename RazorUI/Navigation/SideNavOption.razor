@@ -7,7 +7,7 @@
 
 
 <NavLink 
-    href=@Path
+    href=@Props?.Path
     class="
         group flex items-center
         px-2 py-2
@@ -29,17 +29,14 @@
             @ChildContent    
         </div>
     }
-    @Title
+    @Props?.Label
 </NavLink>
 
 @code {
 
     [Parameter]
-    public string Title { get; set; } = "Default Title";
-
-    [Parameter]
-    public string Path { get; set; } = "/";    
-
+    public NavOptionProps? Props { get; set; }
+    
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 }
