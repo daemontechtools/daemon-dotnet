@@ -2,12 +2,13 @@
 
 <label 
     for="region" 
-    class="
+    class=@($@"
         block 
         text-sm font-medium 
         leading-6 
         text-gray-900
-    "
+        {LabelClass}
+    ")
 >
     @Label
 </label>
@@ -33,4 +34,7 @@
 @code {
     [Parameter]
     public string Label { get; set; }
+
+    [Parameter]
+    public string LabelClass { get; set; }
 }
