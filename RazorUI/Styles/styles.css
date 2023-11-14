@@ -15,4 +15,12 @@
             focus-visible:outline-2 focus-visible:outline-offset-2 
             focus-visible:outline-sky-500;
     }
+
+    .container-wide {
+        @apply flex px-4 sm:px-6 lg:px-8;
+    }
+
+    .transition-hover {
+        @apply transition duration-200 ease-in;
+    }
 }
