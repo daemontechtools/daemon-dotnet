@@ -4,58 +4,81 @@
 
 @inject ILogger<ContentViewHeader> Logger
 
-<div class=@($"sm:flex sm:items-center {Class}")>
-    <div class="sm:flex-auto">
-        @if(!String.IsNullOrEmpty(Title))
+<div class=@($"flex w-full justify-between {Class}")>
+    <div class="flex flex-col">
+        @if(Title is not null)
         {
-            <h1 class="text-lg font-semibold leading-6 text-gray-900 outline-none">@Title</h1>
+            <h1 class=@($@"
+                text-2xl font-semibold 
+                leading-6 text-gray-900 
+                outline-none
+                {TitleClass}
+            ")>
+                @Title
+            </h1>
         }
-        @if(!String.IsNullOrEmpty(Description))
+        @if(Subtitle is not null)
         {
-          <p class="mt-2 text-sm text-gray-700">@Description</p>  
+          <p class="mt-3 text-sm text-gray-700">@Subtitle</p>  
         } 
     </div>
 
-    @if(!String.IsNullOrEmpty(ButtonLabel))
-    {
-        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <button 
-                type="button" 
+    <div class="flex self-start gap-x-4">
+        @if(CancelButtonText is not null) {
+            <div 
                 class="
-                    block rounded-md bg-sky-500 
-                    px-3 py-2 text-center text-sm font-semibold 
-                    text-white shadow-sm hover:bg-sky-400 
-                    focus-visible:outline focus-visible:outline-2 
-                    focus-visible:outline-offset-2 
-                    focus-visible:outline-indigo-600
+                    daemon-button 
+                    bg-transparent 
+                    text-gray-600
+                    hover:bg-red-500
+                    hover:text-white
                 "
-                onclick=@HandleButtonClick
+                onclick=@HandleCancelClick
             >
-                @ButtonLabel
-            </button>
-        </div>
-    }
+                @CancelButtonText
+            </div>
+        }
+        @if(SubmitButtonText is not null) {
+            <div 
+                class="daemon-button bg-sky-500 text-white"
+                onclick=@HandleSubmitClick
+            >
+                @SubmitButtonText
+            </div>
+        }
+    </div>
+    
 </div>
 
 
 @code {
     [Parameter]
-    public string Title { get; set; } = "Data Grid Demo";
+    public string Title { get; set; }
+    [Parameter]
+    public string? TitleClass { get; set; }
 
     [Parameter]
-    public string Description { get; set; } = "A list of all the users in your account including their name, title, email and role.";
+    public string Subtitle { get; set; }
 
     [Parameter]
-    public string? ButtonLabel { get; set; }
-
+    public string? SubmitButtonText { get; set; }
     [Parameter]
-    public string Class { get; set; } = "";
-
-    [Parameter]
-    public EventCallback OnClick { get; set; }
-
-    private async Task HandleButtonClick()
+    public EventCallback OnSubmitClick { get; set; }
+    private async Task HandleSubmitClick()
     {
-        await OnClick.InvokeAsync();
+        await OnSubmitClick.InvokeAsync();
     }
+
+    [Parameter]
+    public string? CancelButtonText { get; set; }
+    [Parameter]
+    public EventCallback OnCancelClick { get; set; }
+    private async Task HandleCancelClick()
+    {
+        await OnCancelClick.InvokeAsync();
+    }
+
+
+    [Parameter]
+    public string? Class { get; set; }
 }
