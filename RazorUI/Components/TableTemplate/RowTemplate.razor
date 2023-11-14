@@ -1,0 +1,44 @@
+@namespace Daemon.RazorUI.Components  
+
+
+<li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6">
+    <div class="flex min-w-0 gap-x-4">
+        @if(Props.MainImgSrc is not null) {
+            <div class="h-12 w-12">
+                <img src=@Props.MainImgSrc />
+            </div>
+        }
+
+        <div class="min-w-0 flex-auto">
+            @if(Props.Title is not null) {
+                <p class="text-sm font-semibold leading-6 text-gray-900">
+                    <a href="">
+                        <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                        @Props.Title
+                    </a>
+                </p>
+            }
+            @if(Props.Subtitle is not null) {
+                <p class="mt-1 flex text-xs leading-5 text-gray-500">
+                    <a href="mailto:leslie.alexander@example.com" class="relative truncate hover:underline">
+                        @Props.Subtitle    
+                    </a>
+                </p>
+            }
+
+        </div>
+    </div>
+    <div class="flex shrink-0 items-center gap-x-4">
+        @if(Actions is not null) {
+            @Actions(Props)
+        }
+    </div>
+</li>
+
+@code {
+    [Parameter]
+    public RowTemplateProps Props { get; set; } = new RowTemplateProps();
+
+    [Parameter]
+    public RenderFragment<RowTemplateProps>? Actions { get; set; }
+}
