@@ -32,7 +32,7 @@ jobs:
           uses: actions/setup-dotnet@v3
 
         - name: Package Project for Nuget
-          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }} --include-symbols --include-source
+          run: dotnet pack --configuration Release --output ${{ env.NuGetDirectory }}
           working-directory: DataAccess
 
         - uses: actions/upload-artifact@v3
