@@ -1,0 +1,56 @@
+@using Microsoft.AspNetCore.Components.Forms
+
+@namespace Daemon.RazorUI.Input
+
+@inherits InputBase<string>
+
+<label 
+    for=@_id
+    class=@($@"
+        flex flex-col
+        font-medium 
+        leading-6 
+        text-gray-900
+        {LabelClass}
+    ")
+>
+    @Label
+    <InputText 
+        type="text" 
+        id=@_id
+        autocomplete="address-level1" 
+        @bind-Value=@Value
+        class="
+            block w-full 
+            rounded-md border-0 
+            mt-2
+            py-1.5 
+            text-gray-900 
+            shadow-sm 
+            ring-1 ring-inset ring-gray-300 
+            placeholder:text-gray-400 
+            focus:ring-2 focus:ring-inset focus:ring-sky-500 
+            sm:text-sm sm:leading-6
+        "
+    />
+</label>
+
+
+@code {
+       
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string LabelClass { get; set; }
+
+    private string _id { get; set; } = Guid.NewGuid().ToString();
+
+    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
+
+}
