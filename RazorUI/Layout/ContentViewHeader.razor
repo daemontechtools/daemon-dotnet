@@ -5,7 +5,7 @@
 @inject ILogger<ContentViewHeader> Logger
 
 <div class=@($"flex w-full justify-between {Class}")>
-    <div class="flex flex-col">
+    <div class="flex flex-col pr-10">
         @if(Title is not null)
         {
             <h1 class=@($@"
@@ -20,7 +20,7 @@
         @if(Subtitle is not null)
         {
           <p class="mt-3 text-sm text-gray-700">@Subtitle</p>  
-        } 
+        }
     </div>
 
     <div class="flex self-start gap-x-4">
