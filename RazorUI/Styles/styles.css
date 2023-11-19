@@ -11,6 +11,7 @@
             cursor-pointer
             transition-hover
             flex rounded-md bg-sky-500 px-3 py-2 justify-center
+            whitespace-nowrap
             text-center text-sm font-semibold text-black shadow-sm
             ring-1 ring-inset ring-gray-300
             hover:bg-sky-300 w-fit min-w-[80px] focus-visible:outline 
