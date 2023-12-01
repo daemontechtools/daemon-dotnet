@@ -41,6 +41,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="SMART.Common">
+      <HintPath>lib/SMART.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SMART.Common.Functions">
+      <HintPath>lib/SMART.Common.Functions.dll</HintPath>
+    </Reference>
+    <Reference Include="SMART.Utility.Globalization">
+      <HintPath>lib/SMART.Utility.Globalization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="daemon_logo.jpg" Pack="true" PackagePath="daemon_logo.jpg" />
     <None Include="README.md" Pack="true" PackagePath="README.md" />
   </ItemGroup>

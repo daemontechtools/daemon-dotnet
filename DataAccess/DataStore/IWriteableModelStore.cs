@@ -1,11 +1,13 @@
 using AutoMapper;
-
+using SMART.Common.Base;
 
 namespace Daemon.DataAccess.DataStore;
 
-public interface IWriteableModelStore<V> where V : IDbModel {
-    Task<V> Create(V viewModel);
-    Task Delete(int id);
-    Task Update(V viewModel);
-    IMapper Mapper { get; }
+public interface IWriteableModelStore<D, V> 
+    where D : SMARTBaseClass
+    where V : SMARTBaseClass 
+{
+    Task<V> Create(V view);
+    Task Delete(string id);
+    Task Update(V view);
 }

@@ -1,7 +1,8 @@
 namespace Daemon.DataAccess.DataStore;
 
-public interface IModelStorage<D> where D : IDbModel {
-    List<D> Models { get; set;}
+public interface IModelStorage<V> {
+    ICollection<V> Models { get; set;}
+    IQueryable<V> Views { get; set;}
     event EventHandler? OnStateChanged;
     void StateChanged();
 }

@@ -1,47 +1,55 @@
 using AutoMapper;
-
+using SMART.Common.Base;
 
 namespace Daemon.DataAccess.DataStore;
 
-public struct BaseWriteableModelStore<D, V> 
-    : IWriteableModelStore<V>
-    where D : IDbModel
-    where V : IDbModel
+public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V>
+    where D : SMARTBaseClass
+    where V : SMARTBaseClass
 {
-    public IModelStorage<D> Storage { get; }
-    public IMapper Mapper { get; }
+    protected IMapper _mapper { get; }
+    protected IModelStorage<V> _storage { get; }
+    protected IModelApi<D> _api { get; }
 
     public BaseWriteableModelStore(
-        IModelStorage<D> storage,
-        IMapper mapper
+        IMapper mapper,
+        IModelStorage<V> storage,
+        IModelApi<D> api
     ) {
-        Storage = storage;
-        Mapper = mapper;
+        _storage = storage;
+        _mapper = mapper;
+        _api = api;
     }
 
-    public Task<V> Create(V viewModel)
+    public virtual Task<V> Create(V view)
     {
-        D newModel = Mapper.Map<D>(viewModel);
-        Storage.Models.Add(newModel);
-        Storage.StateChanged();
-        return Task.FromResult(viewModel);
-    }
-
-    public Task Delete(int id)
-    {
-        Storage.Models.Remove(Storage.Models.First(m => m.Id == id));
-        Storage.StateChanged();
-        return Task.CompletedTask;
-    }
-
-    public Task Update(V viewModel)
-    {
-        D newModel = Mapper.Map<D>(viewModel);
-        int index = Storage.Models.FindIndex(m => m.Id == viewModel.Id);
-        if (index >= 0) {
-            Storage.Models[index] = newModel;
-            Storage.StateChanged();
+        _storage.Models.Add(view);
+        _storage.StateChanged();
+        V? newView = _storage.Views.Where(
+            v => v.ID == view.ID
+        ).FirstOrDefault();
+        if(newView is null) {
+            throw new Exception("Could not find new view");
         }
+        return Task.FromResult(newView);
+    }
+
+    public Task Delete(string id)
+    {
+        _storage.Models.Remove(_storage.Models.First(m => m.ID == id));
+        _storage.StateChanged();
         return Task.CompletedTask;
+    }
+
+    public Task Update(V view)
+    {
+        return Task.CompletedTask;
+        //D newModel = Mapper.Map<D>(viewModel);
+        // int index = _storage.Models.FindIndex(m => m.ID == view.ID);
+        // if (index >= 0) {
+        //     _storage.Models[index] = newModel;
+        //     _storage.StateChanged();
+        // }
+        // return Task.CompletedTask;
     }
 }

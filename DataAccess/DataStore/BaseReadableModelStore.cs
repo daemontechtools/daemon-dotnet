@@ -1,40 +1,65 @@
 ﻿using AutoMapper;
-
+using SMART.Common.Base;
 
 namespace Daemon.DataAccess.DataStore;
 
-public struct BaseReadableModelStore<D, V> 
-    : IReadableModelStore<V>
-    where D : IDbModel
-    where V : IDbModel
+public class BaseReadableModelStore<D, V> : IReadableModelStore<V>    
+    where D : SMARTBaseClass 
+    where V : SMARTBaseClass 
 {
-    public IModelStorage<D> Storage { get; }
-    public IMapper Mapper { get; }
+    private IMapper _mapper { get; }
+    private IModelStorage<V> _storage { get; }
+    private IModelApi<D> _api { get; }
 
     public BaseReadableModelStore(
-        IModelStorage<D> storage,
-        IMapper mapper
+        IMapper mapper,
+        IModelStorage<V> storage,
+        IModelApi<D> api
     ) {
-        Mapper = mapper;
-        Storage = storage;
+        _mapper = mapper;
+        _storage = storage;
+        _api = api;
     }
 
-    public Task<V?> GetById(int id)
-    {
-        D? model = Storage.Models.First(m => m.Id == id);
-        return Task.FromResult<V?>(Mapper.Map<V>(model));
-    }
-
-    public Task<List<V>> GetAll(
-        bool refresh = false, 
+    public async Task<IQueryable<V>> Get(
+        bool forceRefresh = false,
         Func<V, bool>? predicate = null
     ) {
-        IMapper mapper = Mapper;
-        IEnumerable<D> models = Storage.Models;
-        if (predicate != null) {
-            models = models.Where(m => predicate(mapper.Map<V>(m)));
+        IQueryable<V> views;
+        if(forceRefresh || _storage.Models.Count == 0) {
+            views = await FetchModels();
+        } else {
+            views = _storage.Views;
         }
-        List<V> result = models.Select(m => mapper.Map<V>(m)).ToList();
-        return Task.FromResult(result);
+
+        if (predicate != null) {
+            views = views.Where(m => predicate(m));
+        }
+        return views;
+    }
+
+    private async Task<IQueryable<V>> FetchModels() {
+        ICollection<D> models = await _api.Get();
+        ICollection<V> views = _mapper.Map<ICollection<V>>(models);
+        _storage.Models = views;
+        _storage.StateChanged();
+        return _storage.Views;
+    }
+
+    public async Task<V> GetById(
+        string id,
+        bool forceRefresh = false
+    ) {
+        IQueryable<V> views;
+        if(forceRefresh || _storage.Models.Count == 0) {
+            views = await FetchModels();
+        } else {
+            views = _storage.Views;
+        }
+        V? view = views.FirstOrDefault(m => m.LinkID == id);
+        if(view is null) {
+            throw new Exception("Could not find view");
+        }
+        return view;
     }
 }
