@@ -2,10 +2,10 @@
 
 @namespace Daemon.RazorUI.Input
 
-@inherits InputBase<string>
+@inherits InputText
+
 
 <label 
-    for=@_id
     class=@($@"
         flex flex-col
         font-medium 
@@ -15,11 +15,8 @@
     ")
 >
     @Label
-    <InputText 
-        type="text" 
-        id=@_id
-        autocomplete="address-level1" 
-        @bind-Value=@Value
+    <input 
+        @attributes="AdditionalAttributes" 
         class="
             block w-full 
             rounded-md border-0 
@@ -31,7 +28,9 @@
             placeholder:text-gray-400 
             focus:ring-2 focus:ring-inset focus:ring-sky-500 
             sm:text-sm sm:leading-6
-        "
+        " 
+        @bind="CurrentValueAsString" 
+        @bind:event="oninput" 
     />
 </label>
 
@@ -43,14 +42,4 @@
 
     [Parameter]
     public string LabelClass { get; set; }
-
-    private string _id { get; set; } = Guid.NewGuid().ToString();
-
-    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
-    {
-        result = value;
-        validationErrorMessage = null;
-        return true;
-    }
-
 }
