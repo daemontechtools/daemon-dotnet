@@ -1,4 +1,5 @@
-﻿@import "default-quickgrid.css";
+﻿@import "form.css";
+@import "quickgrid.css";
 
 @tailwind base;
 @tailwind components;

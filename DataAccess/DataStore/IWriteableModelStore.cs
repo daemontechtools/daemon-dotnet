@@ -8,6 +8,6 @@ public interface IWriteableModelStore<D, V>
     where V : SMARTBaseClass 
 {
     Task<V> Create(V view);
-    Task Delete(string id);
+    Task Delete(V view);
     Task Update(V view);
 }

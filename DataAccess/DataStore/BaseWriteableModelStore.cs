@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using SMART.Common.Base;
 
@@ -26,7 +28,7 @@ public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V>
         _storage.Models.Add(view);
         _storage.StateChanged();
         V? newView = _storage.Views.Where(
-            v => v.ID == view.ID
+            v => v.LinkID == view.LinkID
         ).FirstOrDefault();
         if(newView is null) {
             throw new Exception("Could not find new view");
@@ -34,14 +36,14 @@ public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V>
         return Task.FromResult(newView);
     }
 
-    public Task Delete(string id)
+    public virtual Task Delete(V view)
     {
-        _storage.Models.Remove(_storage.Models.First(m => m.ID == id));
+        _storage.Models.Remove(view);
         _storage.StateChanged();
         return Task.CompletedTask;
     }
 
-    public Task Update(V view)
+    public virtual Task Update(V view)
     {
         return Task.CompletedTask;
         //D newModel = Mapper.Map<D>(viewModel);

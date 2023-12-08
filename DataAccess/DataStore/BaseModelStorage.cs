@@ -6,7 +6,7 @@ namespace Daemon.DataAccess.DataStore;
 public class BaseModelStorage<V> : IModelStorage<V> 
     where V : SMARTBaseClass
 {
-    public ICollection<V> Models { get; set; } = new List<V>();
+    public IList<V> Models { get; set; } = new List<V>();
     public IQueryable<V> Views { get; set; }
 
     public event EventHandler? OnStateChanged;
@@ -16,7 +16,7 @@ public class BaseModelStorage<V> : IModelStorage<V>
     }
 
     public BaseModelStorage(
-        List<V> mockModels
+        IList<V> mockModels
     ) {
         Models = mockModels; 
         Views = Models.AsQueryable();  

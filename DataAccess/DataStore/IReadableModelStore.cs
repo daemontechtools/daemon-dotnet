@@ -12,4 +12,6 @@ public interface IReadableModelStore<V> where V : SMARTBaseClass {
         bool forceRefresh = false, 
         Func<V, bool>? predicate = null
     );
+
+    bool Any();
 }

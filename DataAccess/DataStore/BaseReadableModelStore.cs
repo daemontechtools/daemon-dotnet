@@ -26,7 +26,7 @@ public class BaseReadableModelStore<D, V> : IReadableModelStore<V>
         Func<V, bool>? predicate = null
     ) {
         IQueryable<V> views;
-        if(forceRefresh || _storage.Models.Count == 0) {
+        if(forceRefresh) {
             views = await FetchModels();
         } else {
             views = _storage.Views;
@@ -39,8 +39,8 @@ public class BaseReadableModelStore<D, V> : IReadableModelStore<V>
     }
 
     private async Task<IQueryable<V>> FetchModels() {
-        ICollection<D> models = await _api.Get();
-        ICollection<V> views = _mapper.Map<ICollection<V>>(models);
+        IList<D> models = await _api.Get();
+        IList<V> views = _mapper.Map<IList<V>>(models);
         _storage.Models = views;
         _storage.StateChanged();
         return _storage.Views;
@@ -61,5 +61,9 @@ public class BaseReadableModelStore<D, V> : IReadableModelStore<V>
             throw new Exception("Could not find view");
         }
         return view;
+    }
+
+    public bool Any() {
+        return _storage.Models.Any();
     }
 }
