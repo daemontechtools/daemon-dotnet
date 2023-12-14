@@ -23,28 +23,22 @@ public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V>
         _api = api;
     }
 
-    public virtual Task<V> Create(V view)
-    {
-        _storage.Models.Add(view);
+    public virtual async Task<V> Create(V view) {  
+        D newModel = await _api.Create(_mapper.Map<D>(view));
+        V newView = _mapper.Map<V>(newModel);
+        _storage.Models.Add(newView);
         _storage.StateChanged();
-        V? newView = _storage.Views.Where(
-            v => v.LinkID == view.LinkID
-        ).FirstOrDefault();
-        if(newView is null) {
-            throw new Exception("Could not find new view");
-        }
-        return Task.FromResult(newView);
+        return newView;
     }
 
-    public virtual Task Delete(V view)
-    {
+    public virtual async Task Delete(V view) {
+        D removedModel = _mapper.Map<D>(view);
+        await _api.Delete(removedModel);
         _storage.Models.Remove(view);
         _storage.StateChanged();
-        return Task.CompletedTask;
     }
 
-    public virtual Task Update(V view)
-    {
+    public virtual Task Update(V view) {
         return Task.CompletedTask;
         //D newModel = Mapper.Map<D>(viewModel);
         // int index = _storage.Models.FindIndex(m => m.ID == view.ID);
