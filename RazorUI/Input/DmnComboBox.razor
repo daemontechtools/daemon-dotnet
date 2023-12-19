@@ -140,6 +140,11 @@
 
     private void HandleKeyDown(KeyboardEventArgs e)
     {
+        if(String.IsNullOrEmpty(CurrentValueAsString)) {
+            _filteredOptions = Options;
+            return;
+        }
+
         Logger.LogInformation($"Current Value {CurrentValueAsString}");
         _filteredOptions = Options.Where(
             x => x.Label.Contains(
