@@ -23,6 +23,7 @@
             @bind:event="oninput" 
             @attributes="AdditionalAttributes" 
             @onfocus=@HandleFocus
+            @onkeydown=@HandleKeyDown
             autocomplete="off"
         />
         <ValidationMessage For=@ValueExpression />
@@ -58,12 +59,12 @@
 
                     Active: "text-white bg-indigo-600", Not Active: "text-gray-900"
                 -->
-                @foreach(var option in Options)
+                @foreach(var option in _filteredOptions)
                 {
                     <li 
                         class="
                             relative
-                            cursor-default
+                            cursor-pointer
                             py-2 pl-3 pr-9 
                             text-gray-900
                             group
@@ -116,9 +117,14 @@
 
     [Parameter]
     public IQueryable<DmnSelectOption> Options { get; set; }
+    public IQueryable<DmnSelectOption> _filteredOptions { get; set; }
 
     private bool _isActive = false;
 
+    protected override void OnInitialized()
+    {
+        _filteredOptions = Options;
+    }
 
     private void HandleFocus(FocusEventArgs e)
     {
@@ -132,10 +138,20 @@
         _isActive = false;
     }
 
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        Logger.LogInformation($"Current Value {CurrentValueAsString}");
+        _filteredOptions = Options.Where(
+            x => x.Label.Contains(
+                CurrentValueAsString, 
+                StringComparison.OrdinalIgnoreCase
+            )
+        );
+    }
+
     private void OnOptionClick(string value)
     {
         Logger.LogInformation($"Clicked {value}");
-        CurrentValue = value;
         CurrentValueAsString = Options?.FirstOrDefault(x => x.Value == value)?.Label;
         _isActive = false;
     }
