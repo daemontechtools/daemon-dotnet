@@ -4,28 +4,55 @@
 @inherits InputText
 
 
-<label 
-    class=@($@"
-        dmn-input-label
-        relative
-        {Class}
-    ")
->
-    @Label
-    <input 
-        class="dmn-input-text" 
-        @bind="CurrentValueAsString" 
-        @bind:event="oninput" 
-        @attributes="AdditionalAttributes" 
-        @onfocus="HandleFocus"
-        @onblur="HandleBlur"
-        aria-controls="options" 
-        aria-expanded="false"
-    />
-    <ValidationMessage For=@ValueExpression />
+<div class=@($@"
+    flex flex-col
+    {Class}
+")>
+    <label class="
+        pb-7
+        font-medium 
+        text-gray-900
+    ">
+        @Label
+    </label>
     
-    @if(_isActive) {
-            <ul class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" id="options" role="listbox">
+    <div class="relative">
+        <input 
+            class="dmn-input-text" 
+            @bind=@CurrentValueAsString
+            @bind:event="oninput" 
+            @attributes="AdditionalAttributes" 
+            @onfocus=@HandleFocus
+            autocomplete="off"
+        />
+        <ValidationMessage For=@ValueExpression />
+        @if(_isActive) {
+             <div 
+                class="
+                    absolute
+                    z-10 
+                    top-0 left-0
+                    w-full h-full
+                "
+                @onclick=@HandleBlur
+            ></div>
+            <ul 
+                class="
+                    absolute z-20
+                    top-10
+                    mt-1 max-h-60 
+                    w-full 
+                    overflow-auto 
+                    rounded-md 
+                    bg-white 
+                    py-1 
+                    text-base 
+                    shadow-lg 
+                    ring-1 ring-black ring-opacity-5 
+                    focus:outline-none 
+                    sm:text-sm
+                "
+            >
                 <!--
                     Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
 
@@ -35,17 +62,14 @@
                 {
                     <li 
                         class="
-                            relative 
-                            cursor-default select-none 
+                            relative
+                            cursor-default
                             py-2 pl-3 pr-9 
                             text-gray-900
                             group
                             hover:bg-sky-500 hover:text-white
-                        " 
-                        id="option-0" 
-                        role="option" 
-                        tabindex="-1"
-                        @onclick=@(e => OnOptionClick(option.Value))
+                        "
+                        @onclick=@(() => @OnOptionClick(option.Value))
                     >
                         <!-- Selected: "font-semibold" -->
                         <span class="block truncate">@option.Label</span>
@@ -55,19 +79,35 @@
 
                         Active: "text-white", Not Active: "text-indigo-600"
                         -->
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-sky-500">
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                            </svg>
-                        </span>
+                        @if(option.Label == CurrentValueAsString)
+                        {
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-sky-500 group-hover:text-white">
+                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                </svg>
+                            </span>
+                        }
+
                     </li>
                 }
             </ul>
         }
-</label>
+    </div>
+</div>
+@if(_isActive) {
+    <div 
+        class="
+            fixed
+            z-10 
+            top-0 left-0
+            w-full h-full
+        "
+        @onclick=@HandleBlur
+    ></div>
+}
 
-@code {
-       
+
+@code { 
     [Parameter]
     public string Label { get; set; }
 
@@ -86,14 +126,17 @@
         _isActive = true;
     }
 
-    private void HandleBlur(FocusEventArgs e)
+    private void HandleBlur(MouseEventArgs e)
     {
         Logger.LogInformation("Blur");
         _isActive = false;
     }
 
-    private void OnOptionClick(string locationLinkId)
+    private void OnOptionClick(string value)
     {
-        Logger.LogInformation($"Option Clicked: {locationLinkId}");
+        Logger.LogInformation($"Clicked {value}");
+        CurrentValue = value;
+        CurrentValueAsString = Options?.FirstOrDefault(x => x.Value == value)?.Label;
+        _isActive = false;
     }
 }

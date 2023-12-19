@@ -34,7 +34,7 @@
                     hover:bg-red-500
                     hover:text-white
                 "
-                onclick=@HandleCancelClick
+                @onclick=@HandleCancelClick
             >
                 @CancelButtonText
             </div>
@@ -42,7 +42,7 @@
         @if(SubmitButtonText is not null) {
             <div 
                 class="daemon-button bg-sky-500 text-white"
-                onclick=@HandleSubmitClick
+                @onclick=@HandleSubmitClick
             >
                 @if(IsLoading) {
                     <Spinner Class="w-4 h-4" />
