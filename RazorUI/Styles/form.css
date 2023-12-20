@@ -5,7 +5,6 @@
         @apply 
             flex flex-col
             relative
-            pb-7
             font-medium 
             text-gray-900
     }   
