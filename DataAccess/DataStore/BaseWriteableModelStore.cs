@@ -5,10 +5,7 @@ using SMART.Common.Base;
 
 namespace Daemon.DataAccess.DataStore;
 
-public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V>
-    where D : SMARTBaseClass
-    where V : SMARTBaseClass
-{
+public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V> {
     protected IMapper _mapper { get; }
     protected IModelStorage<V> _storage { get; }
     protected IModelApi<D> _api { get; }
@@ -38,14 +35,13 @@ public class BaseWriteableModelStore<D, V> : IWriteableModelStore<D, V>
         _storage.StateChanged();
     }
 
-    public virtual Task Update(V view) {
-        return Task.CompletedTask;
-        //D newModel = Mapper.Map<D>(viewModel);
-        // int index = _storage.Models.FindIndex(m => m.ID == view.ID);
-        // if (index >= 0) {
-        //     _storage.Models[index] = newModel;
-        //     _storage.StateChanged();
-        // }
-        // return Task.CompletedTask;
+    public virtual async Task<V> Update(V view) {
+        D model = _mapper.Map<D>(view);
+        D newModel = await _api.Update(model);
+        V newView = _mapper.Map<V>(newModel);
+        int index = _storage.Models.IndexOf(view);
+        _storage.Models[index] = newView;
+        _storage.StateChanged();
+        return newView;
     }
 }

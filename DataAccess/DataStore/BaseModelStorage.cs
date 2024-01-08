@@ -3,9 +3,7 @@ using SMART.Common.Base;
 
 namespace Daemon.DataAccess.DataStore;
 
-public class BaseModelStorage<V> : IModelStorage<V> 
-    where V : SMARTBaseClass
-{
+public class BaseModelStorage<V> : IModelStorage<V> {
     public IList<V> Models { get; set; } = new List<V>();
     public IQueryable<V> Views { get; set; }
 

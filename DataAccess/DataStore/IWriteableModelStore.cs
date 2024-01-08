@@ -3,11 +3,8 @@ using SMART.Common.Base;
 
 namespace Daemon.DataAccess.DataStore;
 
-public interface IWriteableModelStore<D, V> 
-    where D : SMARTBaseClass
-    where V : SMARTBaseClass 
-{
+public interface IWriteableModelStore<D, V> {
     Task<V> Create(V view);
     Task Delete(V view);
-    Task Update(V view);
+    Task<V> Update(V view);
 }

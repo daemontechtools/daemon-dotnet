@@ -1,9 +1,5 @@
-@using Microsoft.AspNetCore.Components.Forms
-@using System.Linq.Expressions
+@inherits InputBase<object>
 @namespace Daemon.RazorUI.Input
-@inject ILogger<DmnComboBox> Logger
-@inherits InputText
-@* @typeparam ValidationTValue *@
 
 
 <div class=@($@"
@@ -26,10 +22,10 @@
             autocomplete="off"
             @attributes="AdditionalAttributes" 
         />
-        @* <ValidationMessage 
-            For=@ValidationValueExpression 
+        <ValidationMessage 
+            For=@ValueExpression 
             class="text-red-500 text-xs italic" 
-        /> *@
+        />
         @if(_isActive) {
              <div 
                 class="
@@ -62,7 +58,7 @@
 
                     Active: "text-white bg-indigo-600", Not Active: "text-gray-900"
                 -->
-                @foreach(var option in _filteredOptions)
+                @foreach(var option in _filteredData)
                 {
                     <li 
                         class="
@@ -73,17 +69,17 @@
                             group
                             hover:bg-sky-500 hover:text-white
                         "
-                        @onclick=@(() => @OnOptionClick(option.Value))
+                        @onclick=@(() => @OnOptionClick(option))
                     >
                         <!-- Selected: "font-semibold" -->
-                        <span class="block truncate">@option.Label</span>
+                        <span class="block truncate">@GetTextValue(option)</span>
 
                         <!--
                         Checkmark, only display for selected option.
 
                         Active: "text-white", Not Active: "text-indigo-600"
                         -->
-                        @if(option.Label == CurrentValueAsString)
+                        @if(option == Value)
                         {
                             <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-sky-500 group-hover:text-white">
                                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -94,7 +90,7 @@
 
                     </li>
                 }
-                @if(!_filteredOptions.Any()) {
+                @if(!_filteredData.Any()) {
                     <li class="py-2 pl-3 pr-9 text-gray-900">
                         No results found
                     </li>
@@ -113,71 +109,4 @@
         "
         @onclick=@HandleBlur
     ></div>
-}
-
-
-@code { 
-    [Parameter]
-    public string Label { get; set; }
-
-    [Parameter]
-    public string Class { get; set; }
-
-    [Parameter]
-    public IQueryable<DmnSelectOption> Options { get; set; }
-    public IQueryable<DmnSelectOption> _filteredOptions { get; set; }
-    
-    @* [Parameter]
-    public Expression<Func<ValidationTValue>> ValidationValueExpression { get; set; } *@
-
-    private string _searchValue = "";
-    private bool _isActive = false;
-
-    protected override void OnInitialized()
-    {
-        _filteredOptions = Options;
-        //ValidationValueExpression ??= ValueExpression;
-    }
-
-    private string FormatValue(string value) {
-        return Options
-            .Where(x => x.Value == value)
-            .FirstOrDefault()?
-            .Label;
-    }
-
-    private void HandleInput(ChangeEventArgs e) {;
-        _searchValue = e.Value.ToString();
-        if(String.IsNullOrEmpty(_searchValue)) {
-            _filteredOptions = Options;
-            return;
-        }
-        _filteredOptions = Options.Where(
-            x => x.Label.Contains(
-                _searchValue, 
-                StringComparison.OrdinalIgnoreCase
-            )
-        );
-    }
-
-    private void HandleFocus(FocusEventArgs e) {
-        _isActive = true;
-    }
-
-    private void HandleBlur(MouseEventArgs e) {
-        if(!String.IsNullOrEmpty(Value)) {
-            _searchValue = FormatValue(Value);
-        }
-        _isActive = false;
-    }
-
-
-    private void OnOptionClick(string value) {
-        
-        Logger.LogInformation($"OnOptionClick value:{value}");
-        Value = value;
-        ValueChanged.InvokeAsync(value);
-        _searchValue = FormatValue(value);
-        _isActive = false;
-    }
 }
