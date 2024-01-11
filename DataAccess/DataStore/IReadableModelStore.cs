@@ -16,6 +16,7 @@ public interface IReadableModelStore<V> {
         bool forceRefresh = false, 
         Func<V, bool>? predicate = null
     );
+    Task<IQueryable<V>> FetchModels();
 
     bool Any();
 }

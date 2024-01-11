@@ -52,7 +52,7 @@ public class BaseReadableModelStore<D, V> : IReadableModelStore<V> {
         return views.FirstOrDefault();
     }
 
-    private async Task<IQueryable<V>> FetchModels() {
+    public async Task<IQueryable<V>> FetchModels() {
         IList<D> models = await _api.Get();
         IList<V> views = _mapper.Map<IList<V>>(models);
         _storage.Models = views;
