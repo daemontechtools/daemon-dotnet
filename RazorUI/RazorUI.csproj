@@ -25,8 +25,8 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'!='Release'">
-    <TAILWINDCSS_PATH>/usr/local/bin/tailwindcss</TAILWINDCSS_PATH>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' != 'true'">
+    <TAILWINDCSS_PATH>tailwindcss</TAILWINDCSS_PATH> 
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
