@@ -17,6 +17,7 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
   NuGetDirectory: ${{github.workspace}}/RazorUI/nuget
+  TAILWINDCSS_PATH: ${{github.workspace}}/tailwindcss
     
 jobs:
   create_nuget:
@@ -31,8 +32,7 @@ jobs:
           run: |
             curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64
             chmod +x tailwindcss-linux-x64
-            mv tailwindcss-linux-x64 tailwindcss
-            echo "${{ github.workspace }}/tailwindcss" >> $GITHUB_PATH
+            mv tailwindcss-linux-x64 $TAILWINDCSS_PATH
 
         - name: Setup dotnet
           uses: actions/setup-dotnet@v3
