@@ -17,8 +17,6 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
   DOTNET_NOLOGO: true
   NuGetDirectory: ${{github.workspace}}/RazorUI/nuget
-  APP_MODE: "Production"
-  TAILWINDCSS: "./tailwindcss"
     
 jobs:
   create_nuget:

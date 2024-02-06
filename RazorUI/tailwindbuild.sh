@@ -7,8 +7,8 @@ appStylesPathOut="./wwwroot/css/razor-ui.css"
 
 if [[ $1 == "--watch" ]]; then
   echo "Building Tailwind CSS in watch mode..."
-  $TAILWINDCSS -i $appStylesPathIn -o $appStylesPathOut --watch
+  tailwindcss -i $appStylesPathIn -o $appStylesPathOut --watch
 else
   echo "Building Tailwind CSS..."
-  $TAILWINDCSS -i $appStylesPathIn -o $appStylesPathOut
+  tailwindcss -i $appStylesPathIn -o $appStylesPathOut
 fi
