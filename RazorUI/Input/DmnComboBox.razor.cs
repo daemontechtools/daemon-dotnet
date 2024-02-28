@@ -59,6 +59,7 @@ public partial class DmnComboBox : InputBase<object> {
     }
 
     private string GetTextValue(object obj) {
+        if(obj is string) return obj as string;
         return GetPropertyValue(obj, TextFieldName).ToString();
     }
 
