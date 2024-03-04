@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Components;
-using Daemon.RazorUI.Color;
 using Daemon.RazorUI.Icons;
 
 namespace Daemon.RazorUI.Modal;
 
 
-public struct ModalContentProps
-{
-
-    //TODO: set defaults?
+public struct ModalContentProps {
     public IconProps? IconProps { get; set; }
     public Type? IconType { get; set; }
     public string? IconBackgroundClass { get; set; }
