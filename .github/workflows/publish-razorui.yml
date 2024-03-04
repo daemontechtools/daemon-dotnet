@@ -2,16 +2,16 @@ name: Deploy Daemon RazorUI
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
-    paths:
-      - 'RazorUI/**'
-  pull_request:
-    branches:
-    - main
-    paths:
-      - 'RazorUI/**'
+  # push:
+  #   branches:
+  #   - main
+  #   paths:
+  #     - 'RazorUI/**'
+  # pull_request:
+  #   branches:
+  #   - main
+  #   paths:
+  #     - 'RazorUI/**'
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
