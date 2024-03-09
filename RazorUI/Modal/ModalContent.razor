@@ -1,6 +1,5 @@
 ﻿@using static Microsoft.AspNetCore.Components.Web.RenderMode
-@rendermode InteractiveServer
-
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 @using Daemon.RazorUI.Animations
 @using Microsoft.Extensions.Logging
 
