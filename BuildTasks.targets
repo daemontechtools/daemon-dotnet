@@ -1,0 +1,24 @@
+<!-- UsingTask.targets -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <BuildTaskOutputDir>$(MSBuildThisFileDirectory)build/lib</BuildTaskOutputDir>
+        <BuildTasksAssembly>$(OutputDir)/BuildTasks.dll</BuildTasksAssembly>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="$(MSBuildThisFileDirectory)BuildTasks/BuildTasks.csproj" />
+    </ItemGroup>
+    <!-- <Target
+        Name="BuildTasks"
+        BeforeTargets="PreBuildEvent"
+        Inputs="$(MSBuildProjectDirectory)/cs/*.cs"
+        Outputs="$(OutputDir)/BuildTasks.dll"
+    >
+        <Message Text="Building BuildTasks" Importance="high" />
+        <Exec Command="dotnet build -r $(MSBuildProjectDirectory)/build/BuildTasks.csproj -p:OutDir=$(BuildTaskOutputDir)" />
+    </Target> -->
+
+
+    <!-- Import the tasks from the compiled tasks DLL -->
+    <UsingTask TaskName="TailwindCss" AssemblyFile="$(BuildTasksAssembly)" />
+    <UsingTask TaskName="FindBin" AssemblyFile="$(BuildTasksAssembly)" />
+</Project>
